@@ -93,7 +93,7 @@ function getWinnersByYear(arr, cb, cb2, cb3) {
     let winningTeams = cb2(arr, cb3);
     let yearAndWinners = [];
 
-    for (let i = 0; i < winningTeams.length; i++) {
+    for (let i = 0; i < cb(arr, cb3).length; i++) {
         yearAndWinners.push(`In ${winningYears[i]}, ${winningTeams[i]} won the world cup!`);
     }
 
@@ -113,11 +113,16 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-    /* code here */
+function getAverageGoals(arr, cb) {
+    // let AddedGoalFromFinals = cb(arr).map(function (i) { return i["Home Team Goals"] + i["Away Team Goals"] });
+    let totalGoalsInFinals = cb(arr).reduce((total, item) => {
+        return total += (item["Home Team Goals"] + item["Away Team Goals"])
+    }, 0);
+
+    return Math.round((totalGoalsInFinals / cb(arr).length) * 100) / 100;
 }
 
-
+console.log(getAverageGoals(fifaData, getFinals), ":: this is getAvrageGoals");
 
 
 /// 🥅 STRETCH 🥅 ///
