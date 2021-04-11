@@ -114,7 +114,7 @@ Use the higher order function getAverageGoals to do the following:
 */
 
 function getAverageGoals(arr, cb) {
-    // let AddedGoalFromFinals = cb(arr).map(function (i) { return i["Home Team Goals"] + i["Away Team Goals"] });
+    //     //let AddedGoalFromFinals = cb(arr).map(function (i) { return i["Home Team Goals"] + i["Away Team Goals"] });
     let totalGoalsInFinals = cb(arr).reduce((total, item) => {
         return total += (item["Home Team Goals"] + item["Away Team Goals"])
     }, 0);
@@ -130,9 +130,9 @@ console.log(getAverageGoals(fifaData, getFinals), ":: this is getAvrageGoals");
 //     let totalGoalsInFinals = arr.reduce((total, item) => {
 //         return total += (item["Home Team Goals"] + item["Away Team Goals"])
 //     }, 0);
-//     return Math.round((totalGoalsInFinals / arr.length) * 100) / 100;
+//     return (totalGoalsInFinals / arr.length).toFixed(2);
 // }
-// console.log(getAverageGoals(fifaData), ":: this is getAvrageGoals");
+// console.log(getAverageGoals(fifaData(getFinals)), ":: this is getAvrageGoals");
 
 
 
@@ -141,7 +141,7 @@ console.log(getAverageGoals(fifaData, getFinals), ":: this is getAvrageGoals");
 
 /* 💪💪💪💪💪 Stretch 1: 💪💪💪💪💪 
 Create a function called `getCountryWins` that takes the parameters `data` and `team initials` and returns the number of world cup wins that country has had. 
-
+ 
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
@@ -159,19 +159,20 @@ function getCountryWins(data, cb, teamInitials) {
     });
     console.log(winners, "::winners in initial form");
 
-    // let countryWins = winners.reduce((wins, i) => {
-    //     if (teamInitials === i) {
-    //         return wins += 1;
-    //     }
-    // }, 0);
-
-    let winsArr = [];
-    for (let i = 0; i < winners.length; i++) {
-        if (teamInitials === winners[i]) {
-            winsArr.push(winners[i]);
+    let countryWins = winners.reduce((wins, i) => {
+        if (teamInitials === i) {
+            wins += 1;
         }
-    }
-    let countryWins = winsArr.length
+        return wins;
+    }, 0);
+
+    // let winsArr = [];
+    // for (let i = 0; i < winners.length; i++) {
+    //     if (teamInitials === winners[i]) {
+    //         winsArr.push(winners[i]);
+    //     }
+    // }
+    // let countryWins = winsArr.length
 
     return countryWins;
 
@@ -183,20 +184,52 @@ console.log(getCountryWins(fifaData, getFinals, 'ITA'), "::get Country Wins func
 
 /* 💪💪💪💪💪 Stretch 2: 💪💪💪💪💪 
 Write a function called getGoals() that accepts a parameter `data` and returns the team with the most goals score per appearance (average goals for) in the World Cup finals */
+// reduce to:   if this teams overall final goals / by their appearance in the finals the most then return that team
 
-// function getGoals(data, cb) {
-//     let winners = cb(data).map(function (i) {
-//         if (i["Home Team Goals"] > i["Away Team Goals"]) {
-//             return i["Home Team Initials"];
-//         } else {
-//             return i["Away Team Initials"];
-//         }
+// function getGoals(data) {
 
-//     return 
+// Get Winner and Losers of Finals Separate and there goals separate
+// let winnersOfFinals = [];
+// let losersOfFinals = [];
+// winnersOfFinals = data.map(function (i) {
+//     if (i["Home Team Goals"] > i["Away Team Goals"]) {
+//         return { "Team Name": i["Home Team Name"], "Goals": i["Home Team Goals"] };
+//     } else {
+//         return { "Team Name": i["Away Team Name"], "Goals": i["Away Team Goals"] };
+//     }
+// });
+
+// losersOfFinals = data.map(function (i) {
+//     if (i["Home Team Goals"] < i["Away Team Goals"]) {
+//         return { "Team Name": i["Home Team Name"], "Goals": i["Home Team Goals"] };
+//     } else {
+//         return { "Team Name": i["Away Team Name"], "Goals": i["Away Team Goals"] };
+//     }
+// });
+
+//How many times has that team been in the finals
+
+
+// Reduce: If losers overall appearance  divided by there overall total of goals is the higher than everyone else return them
+// winners Goals
+
+// winnersOfFinals.reduce((AverageGoalsScoredInFinals, i => {
+//     if ((i["Goals"])/) {
+
+//     }
+
+// }), 0);
+
+//losers goals
+
+
+
+// if Best Loser is > Best winner return Best Loser
 
 // }
+// }
 
-// console.log(getGoals(fifaData, getFinals));
+// console.log(getGoals(fifaData(getFinals)));
 
 
 /* 💪💪💪💪💪 Stretch 3: 💪💪💪💪💪
