@@ -113,16 +113,17 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(arr, cb) {
+function getAverageGoals(arr) {
     //     //let AddedGoalFromFinals = cb(arr).map(function (i) { return i["Home Team Goals"] + i["Away Team Goals"] });
-    let totalGoalsInFinals = cb(arr).reduce((total, item) => {
-        return total += (item["Home Team Goals"] + item["Away Team Goals"])
+    let totalGoalsInFinals = arr.reduce((total, item) => {
+        return total += (item["Home Team Goals"] + item["Away Team Goals"]);
     }, 0);
 
-    return Math.round((totalGoalsInFinals / cb(arr).length) * 100) / 100;
+    return (totalGoalsInFinals / arr.length).toFixed(2);
+    // return Math.round((totalGoalsInFinals / arr.length) * 100) / 100;
 }
 
-console.log(getAverageGoals(fifaData, getFinals), ":: this is getAvrageGoals");
+console.log(getAverageGoals(getFinals(fifaData)), ":: this is getAvrageGoals");
 
 
 ///help from slack but still doesn't work
